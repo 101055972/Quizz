@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #00c9ff, #92fe9d);
+  background: linear-gradient(135deg, #ff6bf3, #cd92fe);
   color: #333;
   margin: 0;
   padding: 0;
@@ -20,7 +20,7 @@ body {
 }
 
 h1 {
-  color: #006400;
+  color: #5c0064;
 }
 
 .caixa-alternativas button {
@@ -30,7 +30,7 @@ h1 {
   padding: 10px;
   border: none;
   border-radius: 10px;
-  background: #228b22;
+  background: #8b2286;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -38,7 +38,7 @@ h1 {
 }
 
 .caixa-alternativas button:hover {
-  background: #32cd32;
+  background: #cd32b8;
 }
 
 .caixa-resultado {

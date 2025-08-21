@@ -1,4 +1,3 @@
-const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
@@ -6,79 +5,43 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
   {
-    enunciado: `Assim que saiu da escola você se depara com uma nova tecnologia, 
-    um chat que consegue responder todas as dúvidas que uma pessoa pode ter, 
-    ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?`,
+    enunciado: "Quem é considerado o maior vencedor de Grand Slams no tênis masculino?",
     alternativas: [
-      {
-        texto: "Isso é assustador!",
-        afirmacao: "No início ficou com medo do que essa tecnologia pode fazer."
-      },
-      {
-        texto: "Isso é maravilhoso!",
-        afirmacao: "Quis saber como usar IA no seu dia a dia."
-      }
+      { texto: "Roger Federer", afirmacao: "Você lembrou do clássico Federer." },
+      { texto: "Novak Djokovic", afirmacao: "Correto! Djokovic é o recordista de Slams." }
     ]
   },
   {
-    enunciado: `Com a descoberta desta tecnologia, chamada Inteligência Artificial, 
-    uma professora de tecnologia da escola decidiu fazer uma sequência de aulas sobre esta tecnologia. 
-    No fim de uma aula ela pede que você escreva um trabalho sobre o uso de IA em sala de aula. Qual atitude você toma?`,
+    enunciado: "Em qual superfície Roland Garros é jogado?",
     alternativas: [
-      {
-        texto: "Utiliza uma ferramenta de busca na internet que utiliza IA para encontrar informações relevantes.",
-        afirmacao: "Conseguiu utilizar a IA para buscar informações úteis."
-      },
-      {
-        texto: "Escreve o trabalho com base nas conversas que teve com colegas e pesquisas próprias.",
-        afirmacao: "Sentiu mais facilidade em utilizar seus próprios recursos para escrever seu trabalho."
-      }
+      { texto: "Saibro", afirmacao: "Exatamente, Roland Garros é no saibro vermelho." },
+      { texto: "Grama", afirmacao: "Não, grama é Wimbledon." }
     ]
   },
   {
-    enunciado: `Após a elaboração do trabalho escrito, a professora realizou um debate sobre como a IA impacta o trabalho do futuro. 
-    Nesse debate, como você se posiciona?`,
+    enunciado: "Qual jogadora brasileira já foi número 1 do mundo no tênis?",
     alternativas: [
-      {
-        texto: "Defende a ideia de que a IA pode criar novas oportunidades de emprego e melhorar habilidades humanas.",
-        afirmacao: "Vem impulsionando a inovação na área de IA e luta para abrir novos caminhos profissionais com IA."
-      },
-      {
-        texto: "Me preocupo com as pessoas que perderão seus empregos para máquinas.",
-        afirmacao: "Sua preocupação motivou a criar um grupo de estudos sobre uso ético da IA."
-      }
+      { texto: "Maria Esther Bueno", afirmacao: "Acertou! Uma lenda do tênis brasileiro." },
+      { texto: "Bia Haddad Maia", afirmacao: "Ela é destaque hoje, mas nunca foi nº1." }
     ]
   },
   {
-    enunciado: "Ao final da discussão, você precisou criar uma imagem no computador que representasse o que pensa sobre IA. E agora?",
+    enunciado: "Como se chama o placar especial de 40 iguais?",
     alternativas: [
-      {
-        texto: "Criar uma imagem utilizando uma plataforma de design como o Paint.",
-        afirmacao: "Decidiu compartilhar conhecimentos de design utilizando ferramentas de pintura digital para iniciantes."
-      },
-      {
-        texto: "Criar uma imagem utilizando um gerador de imagem de IA.",
-        afirmacao: "Acelerou o processo de criação de trabalhos com geradores de imagem e agora ensina outras pessoas a usarem também."
-      }
+      { texto: "Deuce", afirmacao: "Correto! No deuce é preciso 2 pontos seguidos pra fechar." },
+      { texto: "Tie-break", afirmacao: "Não, tie-break é o desempate do set." }
     ]
   },
   {
-    enunciado: `Você tem um trabalho em grupo de biologia e uma pessoa do grupo fez tudo com IA, ficando igual ao texto do chat. O que você faz?`,
+    enunciado: "Qual torneio é jogado na grama?",
     alternativas: [
-      {
-        texto: "Aceita o texto gerado pela IA sem alterar.",
-        afirmacao: "Infelizmente passou a utilizar a IA para tudo e agora se sente dependente dela."
-      },
-      {
-        texto: "Revê o texto e adiciona suas próprias ideias para que reflita a visão do grupo.",
-        afirmacao: "Percebeu que os textos gerados pela IA devem servir como auxílio e não resultado final."
-      }
+      { texto: "Wimbledon", afirmacao: "Acertou, o torneio mais tradicional." },
+      { texto: "US Open", afirmacao: "Não, o US Open é em quadra dura." }
     ]
   }
 ];
 
 let atual = 0;
-let perguntaAtual;
 let historiaFinal = "";
 
 function mostraPergunta() {
@@ -86,34 +49,44 @@ function mostraPergunta() {
     mostraResultado();
     return;
   }
-  perguntaAtual = perguntas[atual];
+  const perguntaAtual = perguntas[atual];
   caixaPerguntas.textContent = perguntaAtual.enunciado;
   caixaAlternativas.textContent = "";
-  mostraAlternativas();
+  mostraAlternativas(perguntaAtual);
 }
 
-function mostraAlternativas() {
-  for (const alternativa of perguntaAtual.alternativas) {
-    const botaoAlternativas = document.createElement("button");
-    botaoAlternativas.textContent = alternativa.texto;
-    botaoAlternativas.addEventListener("click", () =>
-      respostaSelecionada(alternativa)
-    );
-    caixaAlternativas.appendChild(botaoAlternativas);
+function mostraAlternativas(pergunta) {
+  for (const alternativa of pergunta.alternativas) {
+    const botao = document.createElement("button");
+    botao.textContent = alternativa.texto;
+    botao.addEventListener("click", () => respostaSelecionada(alternativa));
+    caixaAlternativas.appendChild(botao);
   }
 }
 
-function respostaSelecionada(opcaoSelecionada) {
-  const afirmacoes = opcaoSelecionada.afirmacao;
-  historiaFinal += afirmacoes + " ";
+function respostaSelecionada(opcao) {
+  historiaFinal += opcao.afirmacao + " ";
   atual++;
   mostraPergunta();
 }
 
 function mostraResultado() {
-  caixaPerguntas.textContent = "Em 2049...";
+  caixaPerguntas.textContent = "Fim do Quiz 🎾";
   textoResultado.textContent = historiaFinal;
   caixaAlternativas.textContent = "";
+
+  // Botão de reinício
+  const botaoReiniciar = document.createElement("button");
+  botaoReiniciar.textContent = "Voltar para o início";
+  botaoReiniciar.addEventListener("click", reiniciaQuiz);
+  caixaAlternativas.appendChild(botaoReiniciar);
+}
+
+function reiniciaQuiz() {
+  atual = 0;
+  historiaFinal = "";
+  textoResultado.textContent = "";
+  mostraPergunta();
 }
 
 mostraPergunta();
